@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 public class Todo implements Serializable {
-    private long id;
+    private String id;
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -32,7 +32,7 @@ public class Todo implements Serializable {
     }
 
 
-    public Todo(long id, String todoDescription, String todoFinishDate, Boolean isDone) {
+    public Todo(String id, String todoDescription, String todoFinishDate, Boolean isDone) {
         this.id = id;
         this.todoDescription = todoDescription;
         this.todoFinishDate = todoFinishDate;
@@ -40,7 +40,7 @@ public class Todo implements Serializable {
     }
 
     @JsonProperty
-    public long getId() {
+    public String getId() {
         return id;
     }
 
