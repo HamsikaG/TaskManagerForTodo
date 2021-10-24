@@ -17,6 +17,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dropwizard.version>2.0.25</dropwizard.version>
+        <mockito.core.version>2.23.0</mockito.core.version>
+        <mongodb.version>3.8.2</mongodb.version>
         <mainClass>todolist.nameApplication</mainClass>
     </properties>
 
@@ -38,6 +40,16 @@
             <artifactId>dropwizard-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>${mongodb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.smoketurner</groupId>
+            <artifactId>dropwizard-swagger</artifactId>
+            <version>${dropwizard.swagger.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
         </dependency>
@@ -45,10 +57,20 @@
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
         </dependency>
+        <!-- Testing -->
         <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-testing</artifactId>
+            <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Testing -->
     </dependencies>
 
     <build>
@@ -184,14 +206,6 @@
 
     <reporting>
         <plugins>
-<!--            <plugin>-->
-<!--                <artifactId>maven-project-info-reports-plugin</artifactId>-->
-<!--                <version>3.1.2</version>-->
-<!--                <configuration>-->
-<!--                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>-->
-<!--                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.3.0</version>

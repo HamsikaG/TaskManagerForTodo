@@ -1,3 +1,27 @@
 todoDescription: todoDescription
 todoFinishDate: todoFinishDate
 isDone: true
+
+server:
+  maxThreads: 512
+  applicationContextPath: /dropwizard-mongodb-ms
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+
+logging:
+  level: INFO
+  loggers:
+    todolist: INFO
+
+mongoDBConnection:
+  credentials:
+    username: "user_todos"
+    password: "pAsw0Rd"
+  seeds:
+    - host: localhost
+      port: 27017
+  database: "todos"

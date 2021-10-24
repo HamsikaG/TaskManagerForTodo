@@ -2,8 +2,26 @@ package todolist.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Todo {
+import java.io.Serializable;
+
+public class Todo implements Serializable {
     private long id;
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setTodoDescription(String todoDescription) {
+        this.todoDescription = todoDescription;
+    }
+
+    public void setTodoFinishDate(String todoFinishDate) {
+        this.todoFinishDate = todoFinishDate;
+    }
+
+    public void setIsDone(Boolean done) {
+        isDone = done;
+    }
 
     private String todoDescription;
     private String todoFinishDate;
@@ -12,6 +30,7 @@ public class Todo {
     public Todo() {
         // Jackson deserialization
     }
+
 
     public Todo(long id, String todoDescription, String todoFinishDate, Boolean isDone) {
         this.id = id;

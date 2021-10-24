@@ -1,14 +1,18 @@
 package todolist;
 
+import todolist.db.daos.MongoDBFactoryConnection;
+import todolist.db.daos.MongoDBManaged;
+import todolist.db.daos.TodoDAO;
+import todolist.health.DropwizardMongoDBHealthCheck;
 import todolist.resources.ToDoResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import todolist.health.TemplateHealthCheck;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
 import javax.servlet.FilterRegistration;
+
 
 public class TodoApplication extends Application<TodoConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -20,23 +24,30 @@ public class TodoApplication extends Application<TodoConfiguration> {
         return "hello-world";
     }
 
+
     @Override
-    public void initialize(Bootstrap<TodoConfiguration> bootstrap) {
-        // nothing to do yet
+    public void initialize(final Bootstrap<TodoConfiguration> bootstrap) {
     }
+
 
     @Override
     public void run(TodoConfiguration configuration,
                     Environment environment) {
-        final ToDoResource toDoResource = new ToDoResource(
-                configuration.getTodoDescription(),
-                configuration.getTodoFinishDate(),
-                configuration.getIsDone()
-        );
-//        final TemplateHealthCheck healthCheck =
-//                new TemplateHealthCheck(configuration.getTemplate());
-//        environment.healthChecks().register("template", healthCheck);
-        environment.jersey().register(toDoResource);
+
+        final MongoDBFactoryConnection mongoDBManagerConn = new MongoDBFactoryConnection(configuration.getMongoDBConnection());
+
+        final MongoDBManaged mongoDBManaged = new MongoDBManaged(mongoDBManagerConn.getClient());
+
+        final TodoDAO todoDAO = new TodoDAO(mongoDBManagerConn.getClient()
+                .getDatabase(configuration.getMongoDBConnection().getDatabase())
+                .getCollection("todos"));
+
+        environment.lifecycle().manage(mongoDBManaged);
+      //  environment.jersey().register(toDoResource);
+        environment.jersey().register(new ToDoResource(todoDAO));
+        environment.healthChecks().register("DropwizardMongoDBHealthCheck",
+                new DropwizardMongoDBHealthCheck(mongoDBManagerConn.getClient()));
+
 
         final FilterRegistration.Dynamic corsFilter =
                 environment.servlets().addFilter("CORS", CrossOriginFilter.class);
