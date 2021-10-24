@@ -49,13 +49,12 @@ public class ToDoResource {
         return Response.status(Response.Status.OK).build();
     }
 
-    @POST
+    @DELETE
     @Path("/remove/{id}")
-    @Produces(MediaType.TEXT_PLAIN)
     @Timed
-    public Response deleteToDo(Todo todo) {
-        LOGGER.info("Deleting todo in collection: {}", todo);
-        toDoDAO.delete(new ObjectId(todo.getId()));
-        return Response.status(Response.Status.OK).entity(todo.getId()).build();
+    public Response deleteToDo(@PathParam("id") String id) {
+        LOGGER.info("Deleting todo in collection: {}", id);
+        toDoDAO.delete(new ObjectId(id));
+        return Response.status(Response.Status.OK).entity(id).build();
     }
 }
