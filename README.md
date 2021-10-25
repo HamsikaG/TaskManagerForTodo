@@ -14,7 +14,7 @@ The service will be mounted on $BASE_URL. It will expose a simple *taskManager* 
 * GET     /taskManager/todos - will fetch and return the list of todos from db
 * POST    /taskManager/save - will create another todo, persist in db and return todo with id
 
-* POST     /taskManager/update/{id}  - will update the todo specified by {id}
+* POST     /taskManager/update  - will update the todo in db with todo sent in request body
 * DELETE  /taskManager/{id}  - will delete the todo specified by {id}
 
 A **todo** has the following information:
