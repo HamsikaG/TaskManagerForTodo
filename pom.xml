@@ -20,6 +20,7 @@
         <mockito.core.version>2.23.0</mockito.core.version>
         <mongodb.version>3.8.2</mongodb.version>
         <mainClass>todolist.nameApplication</mainClass>
+
     </properties>
 
     <dependencyManagement>
@@ -43,11 +44,6 @@
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-sync</artifactId>
             <version>${mongodb.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.smoketurner</groupId>
-            <artifactId>dropwizard-swagger</artifactId>
-            <version>${dropwizard.swagger.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
