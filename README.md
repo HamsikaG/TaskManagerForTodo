@@ -6,7 +6,7 @@ as the core framework with a simple UI that consumes the REST API.
 
 
 
-Specification - DRAFT 1 -
+Specification:
 ------------------------
 
 The service will be mounted on $BASE_URL. It will expose a simple *taskManager* resource that has the following API:
@@ -29,7 +29,6 @@ How to run
   - clone: **https://github.com/HamsikaG/TaskManagerForTodo && cd TaskManagerForTodo**
   - build the project with **$ mvn clean install**  
   - run it: **java -jar target/dropwizardArtifactId-1.0-SNAPSHOT.jar server todo-list.yml**
-  - goto the view: http://localhost:8080
 
 
 
