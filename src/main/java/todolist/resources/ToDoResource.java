@@ -2,14 +2,14 @@ package todolist.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import todolist.api.Todo;
+import todolist.db.daos.TodoDAO;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
-import todolist.db.daos.TodoDAO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Path("/taskManager")
 @Produces(MediaType.APPLICATION_JSON)
@@ -24,9 +24,9 @@ public class ToDoResource {
     @GET
     @Path("/todos")
     @Timed
-    public List<Todo> myTodos() {
+    public Response myTodos() {
         LOGGER.info("Fetching all data in collection");
-        return toDoDAO.getAll();
+        return Response.status(Response.Status.CREATED).entity(toDoDAO.getAll()).build();
     }
 
     @POST
@@ -50,7 +50,7 @@ public class ToDoResource {
     }
 
     @DELETE
-    @Path("/remove/{id}")
+    @Path("/{id}")
     @Timed
     public Response deleteToDo(@PathParam("id") String id) {
         LOGGER.info("Deleting todo in collection: {}", id);
